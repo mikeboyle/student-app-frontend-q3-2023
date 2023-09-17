@@ -3,11 +3,19 @@ import { FaMinus, FaPlus } from 'react-icons/fa';
 import './StudentCard.css';
 
 const StudentCard = ({ expanded, onClick, student }) => {
-  const { email, company, firstName, lastName, pic, grades, id, skill } =
-    student;
+  const {
+    email,
+    company,
+    first_name: firstName,
+    last_name: lastName,
+    pic,
+    grades,
+    id,
+    skill,
+  } = student;
 
   // Converted the grades to numbers
-  const numericGrades = grades.map((grade) => Number(grade));
+  const numericGrades = grades.map((grade) => grade.score);
 
   // Add up all the grades
   // Init total = 0
@@ -42,8 +50,8 @@ const StudentCard = ({ expanded, onClick, student }) => {
           <div className="StudentCard__grades">
             <ul>
               {grades.map((grade, index) => (
-                <li key={`${grade}-${index}`}>
-                  <span>Test {index + 1}</span> <span>{grade}%</span>
+                <li key={grade.id}>
+                  <span>Test {index + 1}</span> <span>{grade.score}%</span>
                 </li>
               ))}
             </ul>
