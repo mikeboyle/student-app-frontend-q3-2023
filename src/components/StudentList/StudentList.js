@@ -3,7 +3,7 @@ import StudentCard from '../StudentCard/StudentCard';
 
 import './StudentList.css';
 
-const StudentList = ({ studentData }) => {
+const StudentList = ({ showTestStats, studentData }) => {
   // When I type in the input, I should see filtered results by name
   const [searchInput, setSearchInput] = useState('');
 
@@ -105,6 +105,7 @@ const StudentList = ({ studentData }) => {
         />
         <button onClick={handleExpandAll}>Expand All</button>
         <button onClick={handleCollapseAll}>Collapse All</button>
+        <button onClick={showTestStats}>Test Stats</button>
       </div>
       {renderContent()}
     </div>

@@ -4,7 +4,7 @@
 
 .StudentList__controls {
     display: grid;
-    grid-template-columns: 1fr 100px 100px;
+    grid-template-columns: 1fr 100px 100px 100px;
     align-items: flex-end;
     gap: 16px;
     width: 95%;

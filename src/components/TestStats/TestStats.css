@@ -1,0 +1,32 @@
+.TestStats__content {
+    padding: 1rem;
+    height: 60vh;
+    width: 50vw;
+    background-color: beige;
+    margin: 1rem auto;
+}
+
+.TestStats__stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0.5rem;
+    height: calc(100% - 50px);
+    overflow-y: scroll;
+}
+
+.TestStats__top {
+    display: grid;
+    grid-template-columns: 1fr 50px;
+    align-items: end;
+    gap: 10px;
+    padding-bottom: 1rem;
+}
+
+.TestStats__top button {
+    height: 100%;
+    cursor: pointer;
+}
+
+.TestStats__top h1 {
+    margin: 0;
+}

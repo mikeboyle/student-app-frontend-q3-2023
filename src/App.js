@@ -4,13 +4,16 @@ import Container from './components/Container/Container';
 import Error from './components/Error/Error';
 import Loading from './components/Loading/Loading';
 import StudentList from './components/StudentList/StudentList';
+import TestStats from './components/TestStats/TestStats';
 
 const API_URL = process.env.REACT_APP_API_URL;
+const NUM_TESTS = 8; // TODO: don't hard code this number
 
 function App() {
   const [studentData, setStudentData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [modalOpen, setModalOpen] = useState('');
 
   useEffect(() => {
     console.log('<App /> useEffect() fired');
@@ -43,24 +46,52 @@ function App() {
     fetchData();
   }, []);
 
-  /* If loading, render <Loading />
-    else if error, render <Error error={error} />
-    else render <StudentList />
-  */
+  const closeModal = () => {
+    setModalOpen('');
+  };
+
   const renderContent = () => {
     if (loading) {
       return <Loading />;
     } else if (error) {
       return <Error error={error} />;
     } else {
-      return <StudentList studentData={studentData} />;
+      return (
+        <StudentList
+          showTestStats={() => setModalOpen('testStats')}
+          studentData={studentData}
+        />
+      );
     }
+  };
+
+  const groupGradesByTest = (studentData) => {
+    const gradesByTest = [];
+    for (let i = 0; i < NUM_TESTS; i++) {
+      gradesByTest.push([]);
+    }
+
+    studentData.forEach((student) => {
+      const { grades } = student;
+      for (let i = 0; i < grades.length; i++) {
+        const currScore = grades[i].score;
+        gradesByTest[i].push(currScore);
+      }
+    });
+    return gradesByTest;
   };
   console.log(
     `<App /> rendered! error= ${error} loading = ${loading} num students = ${studentData.length}`
   );
   return (
     <div className="App">
+      {!loading && !error && (
+        <TestStats
+          isOpen={modalOpen === 'testStats'}
+          closeModal={closeModal}
+          tests={groupGradesByTest(studentData)}
+        />
+      )}
       <Container center={Boolean(error || loading)} scroll={false}>
         {renderContent()}
       </Container>
